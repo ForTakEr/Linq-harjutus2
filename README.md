@@ -1,0 +1,1 @@
+# Linq harjutus2
