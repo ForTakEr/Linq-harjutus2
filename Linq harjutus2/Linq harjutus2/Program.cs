@@ -26,23 +26,43 @@ namespace Linq_harjutus2
             #endregion
 
             #region Erinevad tähed
-            var TähtedeArv = sisu.Count(char.IsLetter); 
+            var TähtedeArv = sisu.Count(char.IsLetter);
 
-
-
-
-
-
+            Console.WriteLine("Erinevaid tähti on: {0}", TähtedeArv);
             #endregion
 
             #region Mitu korda esinevad
+            var Esinemine = sisu.ToLower().GroupBy(x => x).Select(x => new { Char = x.Key, Count = x.Count(char.IsLetter) }).OrderByDescending(x => x.Count);
+
+            var Loend = (from täht in Esinemine
+                         where täht.Count > 0
+                         select täht).ToList();
+
+            foreach (var item in Loend)
+            {
+                Console.WriteLine(item);
+            }
+
 
             #endregion
 
             #region Mitte korduv
+            var Words = new List<string> { };
 
+            var sõnad = sisu.Split(eChar, StringSplitOptions.RemoveEmptyEntries);
 
-
+            foreach (var item in sõnad)
+            {
+                if (!Words.Contains(item))
+                {
+                    Words.Add(item);
+                }
+            }
+            Console.WriteLine("Tekst ilma sõnade kordumiseta: ");
+            foreach (var item in Words)
+            {
+                Console.WriteLine(item + " ");
+            }
 
 
             #endregion
